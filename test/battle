@@ -1,0 +1,19 @@
+#!/bin/bash
+win1=0
+win2=0
+string1="Player 1 Wins!"
+string2="Player 2 Wins!"
+for ((i=$3;i<=$4;i++)) do
+	java -jar ../tools/PlayGame.jar ../maps/map$i.txt 1000 1000 log.txt "$1" "$2" 2> out > /dev/null
+	result=$(tail -1 out)
+	if [ "$result" == "$string1" ];	then
+		((win1++))
+	fi
+	if [ "$result" == "$string2" ];	then
+		((win2++))
+	fi
+	echo "map $i done $result"
+done
+echo "Bot 1 Win: $win1"
+echo "Bot 2 Win: $win2"
+rm out
